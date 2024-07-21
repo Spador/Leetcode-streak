@@ -1,16 +1,16 @@
+##Spador
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-        start = 0
-        max_length = 0
-        hashmap = {}
-        
-        for i,c in enumerate(s):
-            if c in hashmap and start <= hashmap[c]:
-                start = hashmap[c]+1
+        charSet = set()
+        left = 0
+        maxLen = 0
+
+        for right in range(len(s)):
+            while s[right] in charSet:
+                charSet.remove(s[left])
+                left += 1
             
-            else:
-                max_length = max(i-start+1, max_length)
-            
-            hashmap[c] = i
+            charSet.add(s[right])
+            maxLen = max(maxLen, right - left + 1)
         
-        return max_length 
+        return maxLen 
