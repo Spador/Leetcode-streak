@@ -23,11 +23,11 @@ problem_number_problem_name/
 
 ## Progress
 
-- Total Problems Solved: 0
-- Easy: 0
-- Medium: 0
+- Total Problems Solved: 21
+- Easy: 8
+- Medium: 13
 - Hard: 0
 
 ## Note
 
-This repository is maintained to track my progress in solving LeetCode problems and to serve as a reference for future review. All solutions are implemented in Python. 
+This repository is maintained to track my progress in solving LeetCode problems and to serve as a reference for future review. Most solutions are implemented in Python. 
