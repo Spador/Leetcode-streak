@@ -36,4 +36,5 @@ ENV/
 Thumbs.db
 
 # Project specific
-commit_history.md 
+commit_history.md
+checkpoint.md 
