@@ -44,7 +44,7 @@ wordDictionary.search("b.."); // return True
 This problem can be solved using a **Trie (Prefix Tree)** data structure with modifications to handle wildcard matching:
 
 ### Data Structure:
-- **TrieNode**: Contains a dictionary of children (character → TrieNode) and a boolean flag `isWord`
+- **TrieNode**: Contains a dictionary of children (character → TrieNode) and a boolean flag `isEnd`
 - **WordDictionary**: Contains a root TrieNode
 
 ### Operations:
@@ -52,20 +52,20 @@ This problem can be solved using a **Trie (Prefix Tree)** data structure with mo
 #### AddWord:
 1. Start from root
 2. For each character in the word, traverse or create the corresponding child node
-3. Mark the final node as a complete word (`isWord = True`)
+3. Mark the final node as a complete word (`isEnd = True`)
 
 #### Search:
-1. Use recursive DFS to handle wildcard matching
-2. For each character in the search word:
+1. Use recursive DFS with index parameter to handle wildcard matching
+2. For each character in the search word starting from index j:
    - If it's a regular character, traverse to the corresponding child node
-   - If it's a dot ('.'), recursively search all possible child nodes
+   - If it's a dot ('.'), recursively search all possible child nodes with next index
 3. Return `True` if we reach the end and the final node is marked as a complete word
 
 ### Key Insights:
 - **Trie Structure**: Each path from root to a node represents a prefix
-- **Wildcard Handling**: Use recursive DFS to explore all possible paths when encountering dots
-- **Word Marking**: Use `isWord` flag to distinguish between prefixes and complete words
-- **Backtracking**: When searching with dots, we need to explore all possible character matches
+- **Wildcard Handling**: Use recursive DFS with index parameter to explore all possible paths when encountering dots
+- **Word Marking**: Use `isEnd` flag to distinguish between prefixes and complete words
+- **Index-based DFS**: The recursive function takes a starting index to efficiently handle wildcard matching
 
 ### Time Complexity:
 - **AddWord**: O(m) where m is the length of the word
