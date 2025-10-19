@@ -45,30 +45,42 @@ This problem can be solved using Depth-First Search (DFS) or Breadth-First Searc
 
 1. **Graph Traversal**: Treat the grid as a graph where each '1' is a node connected to adjacent '1's (up, down, left, right).
 2. **Island Detection**: Each connected component of '1's represents one island.
-3. **DFS/BFS Strategy**: When we find a '1', we traverse the entire connected component and mark all visited cells to avoid counting them again.
+3. **BFS Strategy**: When we find a '1', we use BFS to traverse the entire connected component and mark all visited cells.
 
 ## Algorithm
 
 1. Iterate through each cell in the grid
-2. When we encounter a '1' (land):
+2. When we encounter a '1' (land) that hasn't been visited:
    - Increment the island count
-   - Use DFS or BFS to explore the entire connected component
-   - Mark visited cells (change '1' to '0' or use a visited array)
+   - Use BFS to explore the entire connected component
+   - Mark all visited cells using a set to avoid revisiting
 3. Continue until all cells are processed
 4. Return the total island count
 
-## Key Considerations
+## Implementation Details
 
-- **Visited Tracking**: Mark cells as visited to avoid revisiting and double-counting
-- **Boundary Checking**: Ensure we don't go out of grid bounds during traversal
-- **Adjacent Cells**: Check all four directions (up, down, left, right)
+- **Visited Tracking**: Use a set to track visited coordinates (row, col)
+- **BFS Queue**: Use `collections.deque()` for efficient queue operations
+- **Direction Array**: Check all four directions: [(0,1), (0,-1), (1,0), (-1,0)]
+- **Boundary Checking**: Ensure coordinates are within grid bounds
+- **DFS Alternative**: Change `q.popleft()` to `q.pop()` to convert BFS to DFS
+
+## Key Optimizations
+
+- **Early Return**: Return 0 immediately if grid is empty
+- **Set-based Visited Tracking**: O(1) lookup time for visited cells
+- **Efficient Queue Operations**: Using deque for O(1) append/pop operations
 
 ## Time Complexity
 
 - **Time**: O(m × n) where m and n are the dimensions of the grid
   - We visit each cell at most once
-- **Space**: O(m × n) in the worst case for the recursion stack (DFS) or queue (BFS)
+- **Space**: O(m × n) in the worst case for the visited set and BFS queue
 
-## Note
+## Solution
 
-This is a classic graph traversal problem that can be solved using either DFS or BFS. The solution will explore connected components of land cells and count each as a separate island.
+The solution uses BFS with a visited set to track explored cells:
+- Iterates through each cell in the grid
+- When finding unvisited land ('1'), performs BFS to explore the entire island
+- Uses a set to avoid revisiting cells and double-counting islands
+- Returns the total number of distinct islands found
