@@ -41,6 +41,38 @@ This problem can be solved using Depth-First Search (DFS) to explore each island
 3. **Maximum Tracking**: Keep track of the largest island area found.
 4. **Visited Tracking**: Mark visited cells to avoid recounting.
 
-## Note
+## Algorithm
 
-This is a graph traversal problem that requires exploring connected components and calculating their areas. The solution will be implemented using DFS with proper boundary checking and visited cell tracking.
+1. Iterate through each cell in the grid
+2. When we encounter a '1' (land) that hasn't been visited:
+   - Use DFS to explore the entire connected component
+   - Count the number of cells in the island
+   - Update the maximum area found
+3. Return the maximum area
+
+## Implementation Details
+
+- **DFS Function**: Recursively explores all 4-directional neighbors
+- **Boundary Checking**: Ensure coordinates are within grid bounds
+- **Visited Set**: Track visited cells to avoid revisiting
+- **Area Calculation**: Return 1 + sum of all connected cell areas
+
+## Key Optimizations
+
+- **Early Termination**: Skip cells that are water (0) or already visited
+- **Set-based Visited Tracking**: O(1) lookup time for visited cells
+- **Efficient DFS**: Each cell is visited exactly once
+
+## Time Complexity
+
+- **Time**: O(m × n) where m and n are the dimensions of the grid
+  - We visit each cell at most once
+- **Space**: O(m × n) in the worst case for the visited set and recursion stack
+
+## Solution
+
+The solution uses DFS to explore each island:
+- Iterates through each cell in the grid
+- When finding unvisited land ('1'), performs DFS to calculate island area
+- Uses a set to avoid revisiting cells and double-counting
+- Returns the maximum area found among all islands
