@@ -34,29 +34,43 @@ Output: [["Q"]]
 This is a classic backtracking problem that requires:
 
 1. **Backtracking Strategy**: Try placing queens row by row, ensuring no conflicts.
-2. **Conflict Detection**: Check if a queen can be placed without attacking other queens:
-   - No queen in the same column
-   - No queen in the same diagonal (both main and anti-diagonal)
+2. **Efficient Conflict Detection**: Use sets to track occupied columns and diagonals for O(1) conflict checking:
+   - `col` set: tracks occupied columns
+   - `posDiag` set: tracks positive diagonals (row + col pattern)
+   - `negDiag` set: tracks negative diagonals (row - col pattern)
 3. **Base Case**: When all n queens are placed successfully, add the board configuration to results.
 4. **Recursive Case**: For each row, try placing a queen in each column and recursively solve for the next row.
 
 ## Algorithm
 
-1. Start with an empty board
-2. For each row from 0 to n-1:
+1. Handle edge cases: n=2 and n=3 have no solutions, return empty list
+2. Initialize tracking sets for columns and diagonals
+3. Create empty board and result list
+4. For each row from 0 to n-1:
    - Try placing a queen in each column of the current row
-   - Check if the placement is valid (no conflicts)
-   - If valid, place the queen and recursively solve for the next row
-   - Backtrack by removing the queen and trying the next column
-3. When all queens are placed, add the board configuration to results
+   - Check conflicts using sets (O(1) time)
+   - If no conflicts, place queen, update tracking sets, and recurse
+   - Backtrack by removing queen and cleaning up tracking sets
+5. When all queens are placed, add board configuration to results
+
+## Key Optimizations
+
+- **Diagonal Tracking**: Use mathematical patterns to identify diagonals:
+  - Positive diagonal: `row + col` (constant sum)
+  - Negative diagonal: `row - col` (constant difference)
+- **Set-based Conflict Detection**: O(1) time complexity for conflict checking
+- **Early Termination**: Skip impossible cases (n=2, n=3) immediately
 
 ## Time Complexity
 
 - **Time**: O(N!) where N is the board size
   - In the worst case, we explore all possible queen placements
-  - Each placement involves checking conflicts which takes O(N) time
-- **Space**: O(N) for the recursion stack and board representation
+  - Each placement involves O(1) conflict checking using sets
+- **Space**: O(N) for the recursion stack, tracking sets, and board representation
 
-## Note
+## Solution
 
-This problem is a classic example of backtracking and constraint satisfaction. The solution will be implemented using recursive backtracking with proper conflict detection.
+The solution uses optimized backtracking with set-based conflict detection:
+- Tracks occupied columns, positive diagonals, and negative diagonals using sets
+- Uses mathematical patterns to identify diagonal conflicts efficiently
+- Implements proper backtracking with cleanup of tracking data structures
