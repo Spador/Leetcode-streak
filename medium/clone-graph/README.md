@@ -69,6 +69,33 @@ This problem can be solved using Depth-First Search (DFS) with a hash map to tra
 3. **Cycle Prevention**: Check if a node has already been cloned to avoid infinite loops.
 4. **Neighbor Cloning**: For each node, recursively clone all its neighbors.
 
-## Note
+## Algorithm
 
-This is a classic graph traversal problem that requires careful handling of cycles and proper deep copying. The solution will be implemented using DFS with memoization.
+1. Create a hash map `oldToNew` to track cloned nodes
+2. Use DFS to traverse the graph:
+   - If node is already cloned, return the cloned version
+   - Create a new node with the same value
+   - Add the mapping to the hash map
+   - Recursively clone all neighbors
+   - Add cloned neighbors to the new node's neighbors list
+3. Return the cloned node
+
+## Key Optimizations
+
+- **Memoization**: Use hash map to avoid re-cloning the same node
+- **Cycle Detection**: Hash map prevents infinite recursion in cyclic graphs
+- **Efficient Traversal**: DFS ensures each node is visited exactly once
+
+## Time Complexity
+
+- **Time**: O(V + E) where V is the number of vertices and E is the number of edges
+  - We visit each node and edge exactly once
+- **Space**: O(V) for the hash map and recursion stack
+
+## Solution
+
+The solution uses DFS with memoization:
+- Maps original nodes to their cloned copies using a hash map
+- Recursively clones each node and its neighbors
+- Prevents infinite loops by checking if a node has already been cloned
+- Returns the cloned graph starting from the given node
