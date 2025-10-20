@@ -58,6 +58,40 @@ This problem can be solved using Depth-First Search (DFS) from the ocean boundar
 2. **Two Ocean Tracking**: Use separate sets to track cells that can reach Pacific and Atlantic oceans.
 3. **Intersection**: Find cells that can reach both oceans.
 
-## Note
+## Algorithm
 
-This is a graph traversal problem that requires analyzing water flow patterns from ocean boundaries. The solution will be implemented using DFS with reverse flow analysis.
+1. Create two sets: `pac` for Pacific-reachable cells and `atl` for Atlantic-reachable cells
+2. Start DFS from Pacific boundaries (top and left edges):
+   - Top row: DFS from each cell
+   - Left column: DFS from each cell
+3. Start DFS from Atlantic boundaries (bottom and right edges):
+   - Bottom row: DFS from each cell
+   - Right column: DFS from each cell
+4. Find intersection of both sets to get cells that can reach both oceans
+
+## Implementation Details
+
+- **DFS Function**: Recursively explores all 4-directional neighbors
+- **Height Constraint**: Water can only flow to cells with height <= current height
+- **Boundary Checking**: Ensure coordinates are within grid bounds
+- **Visited Tracking**: Use sets to track reachable cells from each ocean
+
+## Key Optimizations
+
+- **Reverse Flow**: Start from ocean boundaries instead of checking each cell
+- **Set Operations**: Use set intersection to find cells reachable by both oceans
+- **Efficient DFS**: Each cell is visited at most twice (once per ocean)
+
+## Time Complexity
+
+- **Time**: O(m × n) where m and n are the dimensions of the grid
+  - We visit each cell at most twice (once per ocean)
+- **Space**: O(m × n) for the sets and recursion stack
+
+## Solution
+
+The solution uses reverse DFS from ocean boundaries:
+- Starts DFS from Pacific boundaries (top and left edges)
+- Starts DFS from Atlantic boundaries (bottom and right edges)
+- Uses set intersection to find cells reachable by both oceans
+- Returns coordinates of cells that can flow to both Pacific and Atlantic oceans
