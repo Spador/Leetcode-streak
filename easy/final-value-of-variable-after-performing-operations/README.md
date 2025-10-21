@@ -62,6 +62,37 @@ This problem can be solved by mapping each operation to its corresponding value 
 2. **Accumulation**: Sum all the values to get the final result.
 3. **Simple Iteration**: Process each operation and accumulate the result.
 
-## Note
+## Algorithm
 
-This is a simple string processing problem that requires mapping operations to their effects. The solution will be implemented using a dictionary mapping approach.
+1. Create a dictionary mapping each operation to its value:
+   - "++X" and "X++" → +1
+   - "--X" and "X--" → -1
+2. Initialize result to 0
+3. Iterate through each operation and add its mapped value
+4. Return the final accumulated result
+
+## Implementation Details
+
+- **Dictionary Mapping**: Use a hash map for O(1) operation lookup
+- **Simple Accumulation**: Add each operation's value to running total
+- **No Edge Cases**: All operations are guaranteed to be valid
+
+## Key Optimizations
+
+- **Hash Map Lookup**: O(1) time complexity for each operation
+- **Single Pass**: Process all operations in one iteration
+- **Minimal Space**: Only store the mapping and result
+
+## Time Complexity
+
+- **Time**: O(n) where n is the number of operations
+  - We process each operation exactly once
+- **Space**: O(1) for the mapping dictionary (constant size)
+
+## Solution
+
+The solution uses a dictionary mapping approach:
+- Maps each operation string to its corresponding value change
+- Accumulates all values to get the final result
+- Handles all four possible operations efficiently
+- Returns the final value after all operations
