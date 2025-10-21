@@ -52,6 +52,39 @@ This problem can be solved using Breadth-First Search (BFS) to simulate the rott
 3. **Fresh Orange Tracking**: Count remaining fresh oranges.
 4. **Impossibility Check**: Return -1 if fresh oranges remain after all possible rotting.
 
-## Note
+## Algorithm
 
-This is a graph traversal problem that simulates a spreading process. The solution will be implemented using BFS with level-by-level processing to track time.
+1. Initialize queue with all rotten oranges and count fresh oranges
+2. Use BFS to process each minute:
+   - Process all oranges that will rot in current minute
+   - Add newly rotten oranges to queue
+   - Decrement fresh orange count
+   - Increment time
+3. Return time if no fresh oranges remain, otherwise -1
+
+## Implementation Details
+
+- **Multi-source BFS**: Start from all rotten oranges at once
+- **Level Processing**: Process all oranges that rot in each minute
+- **Fresh Tracking**: Count and decrement fresh oranges as they rot
+- **Boundary Checking**: Ensure coordinates are within grid bounds
+
+## Key Optimizations
+
+- **Level-by-level Processing**: Process all oranges that rot in each minute
+- **Fresh Orange Counter**: Track remaining fresh oranges efficiently
+- **Early Termination**: Stop when no more oranges can rot
+
+## Time Complexity
+
+- **Time**: O(m × n) where m and n are grid dimensions
+  - We visit each cell at most once
+- **Space**: O(m × n) for the queue in worst case
+
+## Solution
+
+The solution uses multi-source BFS:
+- Starts from all rotten oranges simultaneously
+- Processes each minute level by level
+- Tracks fresh orange count and time
+- Returns minimum time or -1 if impossible
