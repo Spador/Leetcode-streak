@@ -42,6 +42,39 @@ This problem can be solved using Breadth-First Search (BFS) from all gates simul
 3. **Level Processing**: Process each distance level to ensure shortest paths.
 4. **In-place Update**: Modify the rooms grid directly with calculated distances.
 
-## Note
+## Algorithm
 
-This is a graph traversal problem that requires finding shortest distances from multiple sources. The solution will be implemented using multi-source BFS with level-by-level processing.
+1. Find all gates (value 0) and add them to the queue
+2. Use BFS to process each distance level:
+   - Process all rooms at current distance level
+   - Update room values with current distance
+   - Add adjacent valid rooms to queue for next level
+   - Increment distance for next level
+3. Continue until all reachable rooms are processed
+
+## Implementation Details
+
+- **Multi-source BFS**: Start from all gates simultaneously
+- **Level Processing**: Process all rooms at each distance level
+- **Boundary Checking**: Ensure coordinates are within grid bounds
+- **Visited Tracking**: Prevent revisiting rooms and handle walls
+
+## Key Optimizations
+
+- **Level-by-level Processing**: Ensures shortest distance calculation
+- **In-place Updates**: Modify the grid directly without extra space
+- **Early Termination**: Stop when no more rooms can be reached
+
+## Time Complexity
+
+- **Time**: O(m × n) where m and n are grid dimensions
+  - We visit each cell at most once
+- **Space**: O(m × n) for the queue in worst case
+
+## Solution
+
+The solution uses multi-source BFS:
+- Starts from all gates simultaneously
+- Processes each distance level to ensure shortest paths
+- Updates room values in-place with calculated distances
+- Handles walls and boundaries appropriately
