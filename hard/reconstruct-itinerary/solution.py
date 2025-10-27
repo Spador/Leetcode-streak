@@ -2,46 +2,31 @@ from typing import List
 
 class Solution:
     def findItinerary(self, tickets: List[List[str]]) -> List[str]:
-        # Build adjacency list from tickets
-        adjList = {src: [] for src, dst in tickets}
+        # Build graph from tickets
+        graph = {}
         
-        # Sort tickets to ensure lexical order
-        tickets.sort()
+        # Sort tickets by destination to ensure lexical order
+        tickets.sort(key=lambda x: x[1])
+
+        # Populate graph
+        for u, v in tickets:
+            if u in graph:
+                graph[u].append(v)
+            else:
+                graph[u] = [v]
         
-        # Populate adjacency list
-        for src, dst in tickets:
-            adjList[src].append(dst)
+        # Use iterative DFS with stack
+        itinerary, stack = [], [("JFK")]
         
-        # Initialize result path starting with JFK
-        result = ["JFK"]
-        
-        def dfs(src):
-            """DFS with backtracking to find valid itinerary"""
-            # If we've used all tickets, we found a valid itinerary
-            if len(result) == len(tickets) + 1:
-                return True
+        while stack:
+            curr = stack[-1]
             
-            # If current airport has no outgoing flights, backtrack
-            if src not in adjList:
-                return False
-            
-            # Try each destination in lexical order
-            temp = list(adjList[src])  # Create copy to iterate safely
-            for i, destination in enumerate(temp):
-                # Remove ticket from adjacency list (use the ticket)
-                adjList[src].pop(i)
-                result.append(destination)
-                
-                # Recursively explore from destination
-                if dfs(destination):
-                    return True
-                
-                # Backtrack: restore ticket and remove from path
-                adjList[src].insert(i, destination)
-                result.pop()
-            
-            return False
+            # If current airport has outgoing flights, add next destination to stack
+            if curr in graph and len(graph[curr]) > 0:
+                stack.append(graph[curr].pop(0))
+            else:
+                # No more outgoing flights, add current airport to itinerary
+                itinerary.append(stack.pop())
         
-        # Start DFS from JFK
-        dfs("JFK")
-        return result
+        # Reverse to get correct order
+        return itinerary[::-1]
