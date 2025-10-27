@@ -38,50 +38,52 @@ Explanation: Another possible reconstruction is ["JFK","SFO","ATL","JFK","ATL","
 
 ## Approach
 
-This problem can be solved using Depth-First Search (DFS) with backtracking:
+This problem can be solved using an iterative Depth-First Search (DFS) approach with a stack:
 
-1. **Graph Construction**: Build adjacency list from tickets, sorted for lexical order
-2. **DFS with Backtracking**: Explore all possible paths starting from "JFK"
-3. **Lexical Order**: Process destinations in sorted order to ensure smallest lexical result
-4. **Ticket Usage**: Use each ticket exactly once (remove from adjacency list when used)
+1. **Graph Construction**: Build adjacency list from tickets, sorted by destination for lexical order
+2. **Iterative DFS**: Use a stack to simulate DFS traversal without recursion
+3. **Eulerian Path**: This is essentially finding an Eulerian path in the graph
+4. **Lexical Order**: Sort destinations to ensure smallest lexical order result
 
 ## Algorithm
 
-1. Build adjacency list from tickets, sorting destinations for lexical order
-2. Start DFS from "JFK" with result path initialized
-3. For each current airport:
-   - If all tickets used (path length = tickets.length + 1), return true
-   - Try each destination in lexical order
-   - Remove ticket from adjacency list (use ticket)
-   - Add destination to result path
-   - Recursively explore from destination
-   - If successful, return true
-   - Otherwise, backtrack: restore ticket and remove from path
-4. Return the reconstructed itinerary
+1. Build graph from tickets, sorting by destination to ensure lexical order
+2. Initialize stack with "JFK" and empty itinerary
+3. While stack is not empty:
+   - Get current airport from top of stack
+   - If current airport has outgoing flights:
+     - Add the lexicographically smallest destination to stack
+     - Remove that destination from the airport's outgoing flights
+   - If no outgoing flights:
+     - Add current airport to itinerary
+     - Remove airport from stack
+4. Reverse itinerary to get correct order
 
 ## Implementation Details
 
-- **Sorted Adjacency List**: Process destinations in lexical order
-- **Backtracking**: Remove and restore tickets during DFS exploration
-- **Path Tracking**: Maintain result path throughout DFS
-- **Early Termination**: Return immediately when valid itinerary found
+- **Iterative Approach**: Uses stack instead of recursion for better performance
+- **Lexical Sorting**: Sort tickets by destination to ensure lexical order
+- **Stack-based DFS**: Simulates DFS traversal using explicit stack
+- **Post-order Processing**: Add airports to result when no more outgoing flights
 
 ## Key Optimizations
 
-- **Lexical Sorting**: Sort destinations to ensure smallest lexical order
-- **Backtracking**: Efficiently explore all possibilities with ticket restoration
-- **Early Return**: Stop as soon as valid itinerary is found
+- **Iterative DFS**: Avoids recursion overhead and stack overflow
+- **Lexical Sorting**: Ensures smallest lexical order without backtracking
+- **Eulerian Path**: Leverages mathematical property for efficient solution
+- **Stack Simulation**: More memory efficient than recursive approach
 
 ## Time Complexity
 
-- **Time**: O(E^E) where E is number of tickets
-  - In worst case, we explore all possible paths
-- **Space**: O(E) for the adjacency list and recursion stack
+- **Time**: O(E log E) where E is number of tickets
+  - Sorting tickets: O(E log E)
+  - DFS traversal: O(E)
+- **Space**: O(E) for the graph and stack
 
 ## Solution
 
-The solution uses DFS with backtracking:
-- Builds sorted adjacency list from tickets
-- Explores paths starting from "JFK" in lexical order
-- Uses backtracking to try all possible itineraries
-- Returns the lexicographically smallest valid itinerary
+The solution uses iterative DFS with stack:
+- Builds graph from tickets sorted by destination
+- Uses stack-based DFS to find Eulerian path
+- Processes airports in post-order for correct itinerary
+- Returns lexicographically smallest valid itinerary
