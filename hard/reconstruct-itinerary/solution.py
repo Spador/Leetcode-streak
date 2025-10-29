@@ -29,4 +29,4 @@ class Solution:
                 itinerary.append(stack.pop())
         
         # Reverse to get correct order
-        return itinerary[::-1]
+        return itinerary[::-1] 
