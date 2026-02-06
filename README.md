@@ -23,9 +23,9 @@ problem_number_problem_name/
 
 ## Progress
 
-- Total Problems Solved: 180
+- Total Problems Solved: 181
 - Easy: 45
-- Medium: 116
+- Medium: 117
 - Hard: 19
 
 ## Note
