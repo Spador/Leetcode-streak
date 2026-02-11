@@ -1,14 +1,19 @@
+# spador
+
 class Solution:
     def minRemoveToMakeValid(self, s: str) -> str:
-        res = [""] * len(s)
+        result = [""] * len(s)
         stack = []
-        for i, char in enumerate(s):
-            if char == '(':
+        for i, ch in enumerate(s):
+            if ch == "(":
                 stack.append(i)
-            elif char == ')':
-                if stack:
-                    res[stack.pop()] = '('
-                    res[i] = char
+            elif ch == ")":
+                if not stack:
+                    continue
+                else:
+                    result[stack.pop()] = "("
+                    result[i] = ")"
             else:
-                res[i] = char
-        return ''.join(res) 
+                result[i] = ch
+
+        return "".join(result)
