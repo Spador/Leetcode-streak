@@ -1,0 +1,39 @@
+# 435. Non-overlapping Intervals
+
+**Difficulty:** Medium
+
+## Problem Description
+Given an array of intervals, return the minimum number of intervals to remove to make the rest non-overlapping.
+
+## Examples
+
+### Example 1
+```
+Input: intervals = [[1,2],[2,3],[3,4],[1,3]]
+Output: 1
+```
+
+### Example 2
+```
+Input: intervals = [[1,2],[1,2],[1,2]]
+Output: 2
+```
+
+### Example 3
+```
+Input: intervals = [[1,2],[2,3]]
+Output: 0
+```
+
+## Constraints
+- `1 <= intervals.length <= 10^5`
+- `-5 * 10^4 <= starti < endi <= 5 * 10^4`
+
+## Approach
+Greedy — sort by start, track `prevEnd`:
+1. If current start >= `prevEnd`, no overlap — update `prevEnd`.
+2. If overlap, increment removal count and keep the smaller end (greedy: discard the interval ending later to minimise future conflicts).
+
+## Time & Space Complexity
+- **Time Complexity:** `O(n log n)`
+- **Space Complexity:** `O(1)`
