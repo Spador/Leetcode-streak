@@ -31,7 +31,7 @@ Output: false
 - ai != bi
 - There are no self-loops or repeated edges.
 
-## Approach
+## Approach 1: Union-Find
 
 A valid tree must satisfy two conditions:
 1. **Connected**: All nodes must be reachable from each other
@@ -73,9 +73,12 @@ This problem can be solved using the Union-Find algorithm:
   - With path compression and union by rank, operations are nearly O(1)
 - **Space**: O(V) for parent and rank arrays
 
-## Solution
+## Approach 2: DFS
 
-The solution uses Union-Find algorithm:
-- Detects cycles by checking if nodes are already connected
-- Tracks component count to ensure connectivity
-- Returns true only if graph is connected and acyclic
+- Build an adjacency list from the edge list
+- Run DFS from node 0, tracking the previous node to avoid false cycle detection on undirected edges
+- A cycle exists if a visited node is reached again (excluding the parent)
+- Valid tree if DFS completes without a cycle and all n nodes were visited
+
+Time Complexity: O(V + E)
+Space Complexity: O(V + E)
